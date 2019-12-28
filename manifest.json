@@ -1,0 +1,6 @@
+{
+  "name": "URL-Extractor",
+  "version": "0.1",
+  "description": "Extractor or Decrypt true URL hidden by wrapper like wcrpyt",
+  "manifest_version": 2
+}
