@@ -3,9 +3,9 @@
   "version": "0.1",
   "description": "Extractor or Decrypt true URL hidden by wrapper like wcrpyt",
   "permissions": [
+    "clipboardWrite",
     "activeTab",
-    "declarativeContent",
-    "storage"
+    "declarativeContent"
   ],
   "background": {
     "scripts": [
@@ -13,7 +13,6 @@
     ],
     "persistent": false
   },
-  "options_page": "options.html",
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -29,5 +28,16 @@
     "48": "images/get_started48.png",
     "128": "images/get_started128.png"
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*"
+      ],
+      "run_at": "document_idle",
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
   "manifest_version": 2
 }

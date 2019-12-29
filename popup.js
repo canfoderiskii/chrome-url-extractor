@@ -1,20 +1,21 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 'use strict';
 
-let changeColor = document.getElementById('changeColor');
-chrome.storage.sync.get('color', function (data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute('value', data.color);
-});
+let buttonGetURL = document.getElementById('get-url');
+let buttonCopyURL = document.getElementById('copy-url');
 
-changeColor.onclick = function (element) {
-  let color = element.target.value;
+buttonGetURL.onclick = function (element) {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    chrome.tabs.executeScript(
-      tabs[0].id,
-      { code: 'document.body.style.backgroundColor = "' + color + '";' });
+    chrome.tabs.sendMessage(tabs[0].id, { greeting: "hello" }, function (response) {
+      console.log("resp:" + response.farewell);
+    });
   });
+};
+buttonCopyURL.onclick = function (element) {
+  var url = document.getElementById("url").innerHTML;
+  const elm = document.createElement('textarea');
+  elm.value = url;
+  document.body.appendChild(elm);
+  elm.select();
+  document.execCommand('copy');
+  document.body.removeChild(elm);
 };
