@@ -1,12 +1,12 @@
-// var framed_doc = document.getElementById("link_iframe").contentDocument;
-// var url = framed_doc.html.body.iframe.src;
-// console.log("src=" + url);
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-        console.log(sender.tab ?
-            "from a content script:" + sender.tab.url + request.greeting:
-            "from the extension" + request.greeting);
-        if (request.greeting == "hello")
-            sendResponse({ farewell: "goodbye" });
+        var framed_doc = document.getElementById("link_iframe").contentDocument;
+        var url = framed_doc.getElementsByTagName("iframe")[0].src;
+        console.log("src:" + url);
+        if (request.action == "ExtractURL") {
+            sendResponse({ url: url });
+        } else {
+            console.log("unknown request:" + request);
+        }
     });
